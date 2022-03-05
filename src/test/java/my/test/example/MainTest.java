@@ -19,9 +19,7 @@ public class MainTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/EmailCredentials.csv", numLinesToSkip = 1)
     void loginTest(String login, String password) {
-        loginPage.login(login, password);
-        Assertions.assertEquals(loginPage.emailPageIsPresent(), true);
-        loginPage.logOutCurrentUser();
+        Assertions.assertTrue(loginPage.login(login, password), "Email page is not present. User don't log in");
     }
 
     @AfterEach
