@@ -24,7 +24,7 @@ public class TableSortAndSearchDemo {
         this.driver = driver;
     }
 
-    public List<TableInfo> mapTableByFilter(int age, int salary) throws ParseException {
+    public List<TableInfo> mapTableByFilter(int age, int salary){
         driver.navigate().to("https://demo.seleniumeasy.com/table-sort-search-demo.html");
         WebElement showEntriesDropDown = driver.findElement(By.xpath("//select[@name='example_length']"));
 
@@ -37,7 +37,12 @@ public class TableSortAndSearchDemo {
         if (numOfRow != 0) {
             int rowPosition = 1;
             while (rowPosition <= numOfRow) {
-                addTableInfoIfMatchFilter(result, rowPosition, age, salary);
+                try {
+                    addTableInfoIfMatchFilter(result, rowPosition, age, salary);
+                } catch (ParseException e) {
+                    System.out.printf("Error on parse row salary %s", salary);
+                    e.printStackTrace();
+                }
 
                 if (rowPosition == numOfRow) {
                     WebElement nextButton = driver.findElement(By.xpath("//a[@id='example_next']"));

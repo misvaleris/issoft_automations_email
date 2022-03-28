@@ -20,7 +20,7 @@ public class DownloadDataTest {
     @DisplayName(value = "Loading the data Dynamically test")
     @Test
     void loadUserInfoTest() {
-        Assertions.assertTrue(downloadDataDemo.downloadData(), "Data is not uploaded");
+        Assertions.assertEquals(downloadDataDemo.downloadData(), "0%","Data is not uploaded");
     }
 
     @AfterEach

@@ -16,13 +16,13 @@ public class JSAlertDemo {
         this.driver = driver;
     }
 
-    public boolean javaScriptAlertBox() {
+    public String javaScriptAlertBox() {
         driver.navigate().to("https://demo.seleniumeasy.com/javascript-alert-box-demo.html");
         WebElement clickMeButton = driver.findElement(By.xpath("//button[@class='btn btn-default']"));
         clickMeButton.click();
         Alert alert = new WebDriverWait(driver, Duration.ofMinutes(1)).until(ExpectedConditions.alertIsPresent());
         String alertTextActual = alert.getText();
-        return alertTextActual.equals("I am an alert box!");
+        return alertTextActual;
     }
 
 }

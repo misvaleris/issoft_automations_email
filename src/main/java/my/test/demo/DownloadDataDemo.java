@@ -15,7 +15,7 @@ public class DownloadDataDemo {
         this.driver = driver;
     }
 
-    public boolean downloadData() {
+    public String downloadData() {
         driver.navigate().to("https://demo.seleniumeasy.com/bootstrap-download-progress-demo.html");
         WebElement downloadButton = driver.findElement(By.xpath("//button[@id='cricle-btn']"));
         downloadButton.click();
@@ -27,8 +27,13 @@ public class DownloadDataDemo {
 
         wait.until(driver -> {
             WebElement percentageOfDownloading1 = driver.findElement(By.xpath("//div[@class='percenttext']"));
+
             String getTextOnPage = percentageOfDownloading1.getText();
-            if (getTextOnPage.equals("50%")) {
+            int indexId = getTextOnPage.indexOf("%");
+            String modifiedMessage = getTextOnPage.replace(getTextOnPage.substring(indexId), "");
+            int percentageValue = Integer.parseInt(modifiedMessage.trim());
+
+            if (percentageValue >= 50){
                 driver.navigate().refresh();
                 return percentageOfDownloading1;
             } else {
@@ -38,7 +43,7 @@ public class DownloadDataDemo {
         });
 
         WebElement percentageOfDownloadingValue = driver.findElement(By.xpath("//div[@class='percenttext']"));
-        return percentageOfDownloadingValue.getText().equals("0%");
+        return percentageOfDownloadingValue.getText();
     }
 }
 

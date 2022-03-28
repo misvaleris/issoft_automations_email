@@ -39,9 +39,9 @@ public class TableSortAndSearchTest {
     @DisplayName(value = "Table sort and search test")
     @ParameterizedTest
     @MethodSource("testValues")
-    void tableSortAndSearchTest(int age, int salary, List<TableInfo> expectedTableData) throws ParseException {
+    void tableSortAndSearchTest(int age, int salary, List<TableInfo> expectedTableData) {
         List<TableInfo> actualTableData = tableSortAndSearchDemo.mapTableByFilter(age, salary);
-        Assertions.assertEquals(expectedTableData,actualTableData, "d");
+        Assertions.assertEquals(expectedTableData,actualTableData, "Table data isn't equals");
     }
 
     @AfterEach

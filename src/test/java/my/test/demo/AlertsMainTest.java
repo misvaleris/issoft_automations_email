@@ -27,7 +27,7 @@ public class AlertsMainTest {
     @DisplayName(value = "JS Alert test")
     @Test
     void alertTest() {
-        Assertions.assertTrue(jsAlertDemo.javaScriptAlertBox(), "JS Alert test failed, text isn't mach");
+        Assertions.assertEquals(jsAlertDemo.javaScriptAlertBox(), "I am an alert box!","JS Alert test failed, text isn't mach");
     }
 
     @DisplayName(value = "JS Confirmation test")
