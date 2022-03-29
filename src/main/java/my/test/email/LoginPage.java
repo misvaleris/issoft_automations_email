@@ -20,13 +20,6 @@ public class LoginPage {
 
         driver.navigate().to("https://mail.yandex.com/");
 
-        //Sleep is a static method that belongs to the thread class -> Explicit Wait
-        try{
-            Thread.sleep(5000);
-        }
-        catch(InterruptedException ie){
-        }
-
         WebElement loginButton = driver.findElement(By.xpath("//div[@class='HeadBanner-ButtonsWrapper']/a[.='Log in']"));
         loginButton.click();
         String loginField = "//input[@id='passp-field-login']";
