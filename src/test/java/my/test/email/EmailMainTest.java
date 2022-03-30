@@ -1,10 +1,12 @@
 package my.test.email;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class EmailMainTest {
     private LoginPage loginPage;
@@ -13,10 +15,9 @@ public class EmailMainTest {
 
     @BeforeEach
     void setup() {
-        driver = new ChromeDriver();
-        loginPage = new LoginPage(driver);
-        logoutPage = new LogoutPage(driver);
-
+        loginPage = new LoginPage();
+        logoutPage = new LogoutPage();
+        driver = CreateDriver.getInstance();
     }
 
     @DisplayName("Login test for Email")

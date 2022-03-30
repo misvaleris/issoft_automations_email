@@ -9,11 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class LogoutPage {
-    private final WebDriver driver;
 
-    public LogoutPage(WebDriver driver){
-        this.driver = driver;
-    }
+    WebDriver driver = CreateDriver.getInstance();
 
     public boolean logout() {
 

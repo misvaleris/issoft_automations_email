@@ -1,5 +1,6 @@
 package my.test.email;
 
+import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,11 +11,7 @@ import java.time.Duration;
 
 public class LoginPage {
 
-    private final WebDriver driver;
-
-    public LoginPage(WebDriver driver){
-        this.driver = driver;
-    }
+    WebDriver driver = CreateDriver.getInstance();
 
     public boolean login(String login, String password) {
 
