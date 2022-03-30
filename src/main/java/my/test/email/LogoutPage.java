@@ -17,17 +17,14 @@ public class LogoutPage {
 
     public boolean logout() {
 
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='https://passport.yandex.com']//img[@src='https://avatars.mds.yandex.net/get-yapic/0/0-0/islands-middle']")));
-        WebElement profileButton = driver.findElement(By.xpath("//a[@href='https://passport.yandex.com']//img[@src='https://avatars.mds.yandex.net/get-yapic/0/0-0/islands-middle']"));
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Log out']")));
+        WebElement profileButton = driver.findElement(By.xpath("//span[text()='Log out']"));
         profileButton.click();
 
-        WebElement logoutButton = driver.findElement(By.xpath("//li[@class='menu__list-item']/a[@aria-label='Log out']"));
-        logoutButton.click();
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//h1[@class='passp-title ']")));
+        WebElement ChooseAnAccountTitle = driver.findElement(By.xpath("//h1[@class='passp-title ']"));
+        ChooseAnAccountTitle.isDisplayed();
 
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='text']")));
-        WebElement searchBox = driver.findElement(By.xpath("//input[@id='text']"));
-        searchBox.isDisplayed();
-
-        return searchBox.isDisplayed();
+        return ChooseAnAccountTitle.isDisplayed();
     }
 }

@@ -27,8 +27,10 @@ public class EmailMainTest {
     }
 
     @DisplayName("Logout test for Email")
-    @Test
-    void logoutTest() {
+    @ParameterizedTest
+    @CsvFileSource(resources = "/EmailCredentials.csv", numLinesToSkip = 1)
+    void logoutTest(String login, String password) {
+        loginPage.login(login, password);
         Assertions.assertTrue(logoutPage.logout(), "User don't log out");
     }
 
