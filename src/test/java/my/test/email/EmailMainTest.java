@@ -5,11 +5,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class EmailMainTest {
-    private final LoginPage loginPage = new LoginPage();
-    private final LogoutPage logoutPage = new LogoutPage();
+    private LoginPage loginPage;
+    private LogoutPage logoutPage;
 
     @BeforeEach
     void setup() {
+        loginPage = new LoginPage();
+        logoutPage = new LogoutPage();
     }
 
     @DisplayName("Login test for Email")
