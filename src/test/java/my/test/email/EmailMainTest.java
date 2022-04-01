@@ -14,16 +14,17 @@ public class EmailMainTest {
         logoutPage = new LogoutPage();
     }
 
+
     @DisplayName("Login test for Email")
     @ParameterizedTest
     @CsvFileSource(resources = "/EmailCredentials.csv", numLinesToSkip = 1)
-    void loginTest(String login, String password) {
+    public void loginTest(String login, String password) {
         Assertions.assertTrue(loginPage.login(login, password), "User Name is not present. User don't log in");
     }
 
     @DisplayName("Logout test for Email")
     @Test
-    void logoutTest() {
+    public void logoutTest() {
         Assertions.assertTrue(logoutPage.logout(), "User don't log out");
     }
 
