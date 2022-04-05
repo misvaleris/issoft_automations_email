@@ -5,13 +5,21 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class CreateDriver {
 
-    public static WebDriver driver;
+    private WebDriver driver;
+    private static CreateDriver instance;
 
-    public static WebDriver getInstance() {
-        if (driver == null) {
-            driver = new ChromeDriver();
-        }
-        return driver;
+    private CreateDriver() {
+        driver = new ChromeDriver();
     }
 
+    public synchronized static CreateDriver getInstance() {
+        if (instance == null) {
+            instance = new CreateDriver();
+        }
+        return instance;
+    }
+
+    public WebDriver getDriver() {
+        return driver;
+    }
 }
