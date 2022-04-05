@@ -42,7 +42,6 @@ public class HomePage {
 
     public boolean isUserLogIn() {
         openProfile();
-//        new WebDriverWait(driver, Duration.ofMinutes(1).plusSeconds(1)).until(ExpectedConditions.visibilityOfElementLocated(userName));
         return userName.isDisplayed();
     }
 }
