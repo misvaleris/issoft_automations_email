@@ -2,6 +2,9 @@ package my.test.email;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -9,32 +12,37 @@ import java.time.Duration;
 
 public class HomePage {
 
-    private static final String PROFILE_BUTTON = "//a[@href='https://passport.yandex.com']//img[@src='https://avatars.mds.yandex.net/get-yapic/0/0-0/islands-middle']";
-    private static final String USER_NAME = ".user-account_has-subname_yes > .user-account__name";
-    private static final String LOGOUT_BUTTON = "//a[@aria-label='Log out']";
+    @FindBy(xpath = "//a[@href='https://passport.yandex.com']//img[@src='https://avatars.mds.yandex.net/get-yapic/0/0-0/islands-middle']")
+    private WebElement profileButton;
+    @FindBy(css = ".user-account_has-subname_yes > .user-account__name")
+    private WebElement userName;
+    @FindBy(xpath = "//a[@aria-label='Log out']")
+    private WebElement logoutButton;
+
 
     private final WebDriver driver;
 
     public HomePage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
     public HomePage openProfile() {
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath(PROFILE_BUTTON)));
-        driver.findElement(By.xpath(PROFILE_BUTTON)).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(profileButton));
+        profileButton.click();
         return this;
     }
 
     public LogoutPage userLogout() {
         openProfile();
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath(LOGOUT_BUTTON)));
-        driver.findElement(By.xpath(LOGOUT_BUTTON)).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(logoutButton));
+        logoutButton.click();
         return new LogoutPage(driver);
     }
 
     public boolean isUserLogIn() {
         openProfile();
-        new WebDriverWait(driver, Duration.ofMinutes(1).plusSeconds(1)).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(USER_NAME)));
-        return driver.findElement(By.cssSelector(USER_NAME)).isDisplayed();
+//        new WebDriverWait(driver, Duration.ofMinutes(1).plusSeconds(1)).until(ExpectedConditions.visibilityOfElementLocated(userName));
+        return userName.isDisplayed();
     }
 }

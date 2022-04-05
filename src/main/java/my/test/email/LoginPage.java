@@ -1,8 +1,9 @@
 package my.test.email;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,41 +12,47 @@ import java.time.Duration;
 public class LoginPage {
 
     private static final String LOGIN_URL = "https://mail.yandex.com/";
-    private static final String LOGIN_FIELD = "//input[@id='passp-field-login']";
-    private static final String LOGIN_BUTTON = "//div[@class='HeadBanner-ButtonsWrapper']/a[.='Log in']";
-    private static final String SUBMIT_LOGIN_BUTTON = "//button[@id='passp:sign-in']";
-    private static final String PASSWORD_FIELD = "//input[@id='passp-field-passwd']";
-    private static final String SUBMIT_PASSWORD_BUTTON = ".Button2_view_action";
+    @FindBy(xpath = "//input[@id='passp-field-login']")
+    private WebElement loginField;
+    @FindBy(xpath = "//div[@class='HeadBanner-ButtonsWrapper']/a[.='Log in']")
+    private WebElement loginButton;
+    @FindBy(xpath = "//button[@id='passp:sign-in']")
+    private WebElement submitLoginButton;
+    @FindBy(xpath = "//input[@id='passp-field-passwd']")
+    private WebElement passwordField;
+    @FindBy(css = ".Button2_view_action")
+    private WebElement submitPasswordButton;
 
     private final WebDriver driver;
 
     public LoginPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
+
     public LoginPage openLoginForm() {
-        WebElement loginButton = driver.findElement(By.xpath(LOGIN_BUTTON));
         loginButton.click();
         return this;
     }
 
     public LoginPage typeUsername(String username) {
-        driver.findElement(By.xpath(LOGIN_FIELD)).sendKeys(username);
+        loginField.sendKeys(username);
         return this;
     }
 
     public LoginPage submitLogin() {
-        driver.findElement(By.xpath(SUBMIT_LOGIN_BUTTON)).submit();
+        submitLoginButton.submit();
         return this;
     }
 
     public LoginPage typePassword(String password) {
-        driver.findElement(By.xpath(PASSWORD_FIELD)).sendKeys(password);
+        passwordField.sendKeys(password);
         return this;
     }
 
     public HomePage submitPassword() {
-        driver.findElement(By.cssSelector(SUBMIT_PASSWORD_BUTTON)).submit();
+        submitPasswordButton.submit();
         return new HomePage(driver);
     }
 
@@ -54,9 +61,9 @@ public class LoginPage {
         openLoginForm();
         typeUsername(username);
         submitLogin();
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath(PASSWORD_FIELD)));
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(passwordField));
         typePassword(password);
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.cssSelector(SUBMIT_PASSWORD_BUTTON)));
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(submitPasswordButton));
         return submitPassword();
     }
 }
