@@ -9,32 +9,32 @@ import java.time.Duration;
 
 public class HomePage {
 
-    private static final String PROFILE_BUTTON = "//a[@href='https://passport.yandex.com']//img[@src='https://avatars.mds.yandex.net/get-yapic/0/0-0/islands-middle']";
-    private static final String USER_NAME = ".user-account_has-subname_yes > .user-account__name";
-    private static final String LOGOUT_BUTTON = "//a[@aria-label='Log out']";
+    private static final By PROFILE_BUTTON = By.xpath("//a[@href='https://passport.yandex.com']//img[@src='https://avatars.mds.yandex.net/get-yapic/0/0-0/islands-middle']");
+    private static final By USER_NAME = By.cssSelector(".user-account_has-subname_yes > .user-account__name");
+    private static final By LOGOUT_BUTTON = By.xpath("//a[@aria-label='Log out']");
 
     private final WebDriver driver;
 
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
+    public HomePage() {
+        this.driver = CreateDriver.getInstance().getDriver();
     }
 
     public HomePage openProfile() {
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath(PROFILE_BUTTON)));
-        driver.findElement(By.xpath(PROFILE_BUTTON)).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(PROFILE_BUTTON));
+        driver.findElement(PROFILE_BUTTON).click();
         return this;
     }
 
     public LogoutPage userLogout() {
         openProfile();
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath(LOGOUT_BUTTON)));
-        driver.findElement(By.xpath(LOGOUT_BUTTON)).click();
-        return new LogoutPage(driver);
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(LOGOUT_BUTTON));
+        driver.findElement(LOGOUT_BUTTON).click();
+        return new LogoutPage();
     }
 
     public boolean isUserLogIn() {
         openProfile();
-        new WebDriverWait(driver, Duration.ofMinutes(1).plusSeconds(1)).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(USER_NAME)));
-        return driver.findElement(By.cssSelector(USER_NAME)).isDisplayed();
+        new WebDriverWait(driver, Duration.ofMinutes(1).plusSeconds(1)).until(ExpectedConditions.visibilityOfElementLocated(USER_NAME));
+        return driver.findElement(USER_NAME).isDisplayed();
     }
 }
