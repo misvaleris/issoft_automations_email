@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DownloadDataTest {
+public class DownloadDataChromeTest {
     private DownloadData downloadData;
     private WebDriver driver;
 
@@ -26,6 +26,7 @@ public class DownloadDataTest {
             downloadFolder.mkdir();
         }
         Map<String, Object> chromePrefs = new HashMap<>();
+        chromePrefs.put("plugins.always_open_pdf_externally", true);
         chromePrefs.put("download.prompt_for_download", false);
         chromePrefs.put("download.default_directory", downloadFilepath);
         ChromeOptions options = new ChromeOptions();
