@@ -1,5 +1,6 @@
 package my.test.demo.table;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,6 +26,7 @@ public class DownloadData {
 
     private static final By DOWNLOADING_TITLE_XPATH = By.xpath("//em[text()='Please wait a moment']");
     private static final By AD_POPUP_XPATH = By.xpath("//div[@id='card']");
+    private static final By AD_POPUP_CLOSE_BUTTON_XPATH = By.xpath("//div[@aria-label='Close ad']");
 
 
 
@@ -37,14 +39,28 @@ public class DownloadData {
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(SELECT_DOCX_BUTTON_XPATH));
         driver.findElement(SELECT_DOCX_BUTTON_XPATH).click();
 
+
+        Alert alert = driver.switchTo().alert();
+       if (driver.findElement(AD_POPUP_XPATH).isDisplayed()) {
+           driver.findElement(AD_POPUP_CLOSE_BUTTON_XPATH).click();
+        }
+
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(DOWNLOAD_DOCX_BUTTON_XPATH));
         driver.findElement(DOWNLOAD_DOCX_BUTTON_XPATH).click();
+
+
 
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(DOWNLOADING_TITLE_XPATH));
         driver.findElement(DOWNLOADING_TITLE_XPATH).isDisplayed();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
+        driver.switchTo().alert().dismiss();
+
+
         driver.navigate().to(siteUrl);
+
+        Alert alert = driver.switchTo().alert();
+        alert.dismiss();
 
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(SELECT_XLSX_BUTTON_XPATH));
         driver.findElement(SELECT_XLSX_BUTTON_XPATH).click();
