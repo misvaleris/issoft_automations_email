@@ -24,6 +24,8 @@ public class DownloadData {
     private static final By DOWNLOAD_PDF_BUTTON_XPATH = By.xpath("//a[contains(@href,'150kB')]");
 
     private static final By DOWNLOADING_TITLE_XPATH = By.xpath("//em[text()='Please wait a moment']");
+    private static final By AD_POPUP_XPATH = By.xpath("//div[@id='card']");
+
 
 
 
@@ -40,6 +42,7 @@ public class DownloadData {
 
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(DOWNLOADING_TITLE_XPATH));
         driver.findElement(DOWNLOADING_TITLE_XPATH).isDisplayed();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         driver.navigate().to(siteUrl);
 
@@ -51,6 +54,7 @@ public class DownloadData {
 
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(DOWNLOADING_TITLE_XPATH));
         driver.findElement(DOWNLOADING_TITLE_XPATH).isDisplayed();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         driver.navigate().to(siteUrl);
 
@@ -62,7 +66,7 @@ public class DownloadData {
 
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(DOWNLOADING_TITLE_XPATH));
         driver.findElement(DOWNLOADING_TITLE_XPATH).isDisplayed();
-
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
 
         //check if div with id="ad_position_box" exists
