@@ -5,7 +5,9 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -26,6 +28,7 @@ public class DownloadData {
         WebElement selectXlsxButton = driver.findElement(By.xpath("//a[contains(@href,'sample-xls-download')]"));
         WebElement selectPdfButton = driver.findElement(By.xpath("//a[contains(@href,'sample-ppt-file')]"));
 
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(selectDocxButton));
         selectDocxButton.click();
         WebElement downloadDocxButton = driver.findElement(By.xpath("//a[contains(@href,'100kB.docx')]"));
         downloadDocxButton.click();
