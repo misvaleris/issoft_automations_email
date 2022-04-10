@@ -1,5 +1,6 @@
 package my.test.email;
 
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ public class EmailMainTest {
     }
 
     @DisplayName("Login test for Email")
+    @Description("User login to Email page. Expected result: after login user has ability to see home page")
     @ParameterizedTest
     @CsvFileSource(resources = "/EmailCredentials.csv", numLinesToSkip = 1)
     void loginTest(String login, String password) {
@@ -24,6 +26,7 @@ public class EmailMainTest {
     }
 
     @DisplayName("Logout test for Email")
+    @Description("User logout to Email page. Expected result: after logout use doesn't have ability to see home page")
     @ParameterizedTest
     @CsvFileSource(resources = "/EmailCredentials.csv", numLinesToSkip = 1)
     void logoutTest(String login, String password) {
