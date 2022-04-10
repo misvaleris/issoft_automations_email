@@ -1,10 +1,7 @@
 package my.test.demo;
 
 import my.test.demo.table.DownloadData;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -38,7 +35,7 @@ public class DownloadDataChromeTest {
     @DisplayName(value = "Loading the data Dynamically test")
     @Test
     void loadUserInfoTest() {
-        downloadData.downloadData();
+        Assertions.assertEquals(downloadData.downloadData(),"Please wait a moment","Document isn't uploaded");
     }
 
     @AfterEach

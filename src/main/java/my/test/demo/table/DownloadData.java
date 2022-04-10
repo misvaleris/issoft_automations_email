@@ -28,7 +28,7 @@ public class DownloadData {
     private static final By DOWNLOADING_TITLE_XPATH = By.xpath("//em[text()='Please wait a moment']");
     private static final String siteUrl = "https://file-examples.com/index.php/sample-documents-download/";
 
-    public void downloadData() {
+    public String downloadData() {
 
         Map<By, By> map = new HashMap<>();
         map.put(SELECT_DOCX_BUTTON_XPATH, DOWNLOAD_DOCX_BUTTON_XPATH);
@@ -54,6 +54,7 @@ public class DownloadData {
             driver.findElement(DOWNLOADING_TITLE_XPATH).isDisplayed();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         });
+        return driver.findElement(DOWNLOADING_TITLE_XPATH).getText();
     }
 }
 
