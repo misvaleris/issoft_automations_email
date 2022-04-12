@@ -1,17 +1,19 @@
 package my.test.email;
 
-import io.qameta.allure.AllureId;
-import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class EmailMainTest {
     private LoginPage loginPage;
+
+    @RegisterExtension
+    TestAllureListener watcher = new TestAllureListener("target/surefire-reports");
 
     @BeforeEach
     void setup() {
@@ -21,6 +23,8 @@ public class EmailMainTest {
     @DisplayName("Login test for Email")
     @AllureId("Login_1")
     @Feature("Login")
+    @Story("User Login")
+    @Epic("Login")
     @Description("User login to Email page. Expected result: after login user has ability to see home page")
     @ParameterizedTest
     @CsvFileSource(resources = "/EmailCredentials.csv", numLinesToSkip = 1)
@@ -32,6 +36,8 @@ public class EmailMainTest {
     @DisplayName("Logout test for Email")
     @AllureId("Logout_1")
     @Feature("Logout")
+    @Story("User Logout")
+    @Epic("Logout")
     @Description("User logout to Email page. Expected result: after logout use doesn't have ability to see home page")
     @ParameterizedTest
     @CsvFileSource(resources = "/EmailCredentials.csv", numLinesToSkip = 1)
