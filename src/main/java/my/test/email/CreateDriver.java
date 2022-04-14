@@ -13,8 +13,8 @@ public class CreateDriver {
     private WebDriver driver;
     private static CreateDriver instance;
 
-    String url = "http://192.168.50.237:5555";
-    private DesiredCapabilities desiredCapabilities;
+    private static String url = "http://192.168.50.237:5555";
+    private static DesiredCapabilities desiredCapabilities;
 
     private CreateDriver() {
         desiredCapabilities = new DesiredCapabilities();
@@ -27,7 +27,11 @@ public class CreateDriver {
 
     public synchronized static CreateDriver getInstance() {
         if (instance == null) {
-            instance = new RemoteWebDriver(new URL(url), desiredCapabilities);
+            try {
+                instance = new RemoteWebDriver(new URL(url), desiredCapabilities);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
         return instance;
     }
