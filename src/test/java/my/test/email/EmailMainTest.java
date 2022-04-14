@@ -13,6 +13,7 @@ public class EmailMainTest {
     @BeforeEach
     void setup() {
         loginPage = new LoginPage();
+
     }
 
     @DisplayName("Login test for Email")
