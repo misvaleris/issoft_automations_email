@@ -1,7 +1,6 @@
 package my.test.email;
 
 import org.openqa.selenium.Platform;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -12,7 +11,7 @@ import static org.openqa.selenium.remote.CapabilityType.BROWSER_NAME;
 
 public class CreateDriver {
 
-    private WebDriver driver;
+    private RemoteWebDriver driver;
     private static CreateDriver instance;
 
     private static String baseUrl = "http://localhost:4444";
@@ -37,7 +36,7 @@ public class CreateDriver {
         return instance;
     }
 
-    public WebDriver getDriver() {
+    public RemoteWebDriver getDriver() {
         return driver;
     }
 }

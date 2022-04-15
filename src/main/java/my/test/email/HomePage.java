@@ -1,7 +1,7 @@
 package my.test.email;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,7 +13,7 @@ public class HomePage {
     private static final By USER_NAME = By.cssSelector(".user-account_has-subname_yes > .user-account__name");
     private static final By LOGOUT_BUTTON = By.xpath("//a[@aria-label='Log out']");
 
-    private final WebDriver driver;
+    private final RemoteWebDriver driver;
 
     public HomePage() {
         this.driver = CreateDriver.getInstance().getDriver();

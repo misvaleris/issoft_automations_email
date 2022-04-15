@@ -1,8 +1,8 @@
 package my.test.email;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,7 +17,7 @@ public class LoginPage {
     private static final By PASSWORD_FIELD = By.xpath("//input[@id='passp-field-passwd']");
     private static final By SUBMIT_PASSWORD_BUTTON = By.cssSelector(".Button2_view_action");
 
-    private final WebDriver driver;
+    private final RemoteWebDriver driver;
 
     public LoginPage() {
         this.driver = CreateDriver.getInstance().getDriver();
