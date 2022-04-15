@@ -1,37 +1,38 @@
 package my.test.email;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.openqa.selenium.remote.CapabilityType.BROWSER_NAME;
+
 public class CreateDriver {
 
     private WebDriver driver;
     private static CreateDriver instance;
 
-    private static String url = "http://192.168.50.237:5555";
-    private static DesiredCapabilities desiredCapabilities;
+    private static String baseUrl = "http://localhost:4444";
+    private static DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
     private CreateDriver() {
-        desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability(BROWSER_NAME, "chrome");
+        desiredCapabilities.setPlatform(Platform.MAC);
+        desiredCapabilities.setCapability("headless",true);
+
         try {
-            driver = new RemoteWebDriver(new URL(url), desiredCapabilities);
-        } catch (MalformedURLException e){
+            driver = new RemoteWebDriver(new URL(baseUrl), desiredCapabilities);
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
     public synchronized static CreateDriver getInstance() {
         if (instance == null) {
-            try {
-                instance = new RemoteWebDriver(new URL(url), desiredCapabilities);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            instance = new CreateDriver();
         }
         return instance;
     }
