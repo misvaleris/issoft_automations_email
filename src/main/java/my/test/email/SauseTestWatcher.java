@@ -1,10 +1,11 @@
 package my.test.email;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.rules.TestWatcher;
+import org.junit.jupiter.api.extension.TestWatcher;
 import org.openqa.selenium.WebDriver;
 
-public class SauceTestWatcher extends TestWatcher {
+
+public class SauceTestWatcher implements TestWatcher {
 
     private final WebDriver driver;
 
@@ -13,7 +14,8 @@ public class SauceTestWatcher extends TestWatcher {
     }
 
     @Override
-    public void testSuccessful(ExtensionContext context, Throwable throwable) {
+    public void testSuccessful(ExtensionContext context) {
+        context.
         driver.executeScript("sauce:job-result=passed");
     }
 

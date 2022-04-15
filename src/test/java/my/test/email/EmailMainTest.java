@@ -4,11 +4,15 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class EmailMainTest {
     private LoginPage loginPage;
+
+    @RegisterExtension
+    public SauceTestWatcher watcher = new SauceTestWatcher();
 
     @BeforeEach
     void setup()  {
