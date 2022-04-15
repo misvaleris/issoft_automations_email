@@ -1,9 +1,8 @@
 package my.test.email;
 
-import org.openqa.selenium.WebDriver;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.junit.jupiter.api.TestInfo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,7 +11,7 @@ import java.util.Map;
 
 public class CreateDriver {
 
-    private WebDriver driver;
+    private RemoteWebDriver driver;
     private static CreateDriver instance;
 
 
@@ -46,7 +45,7 @@ public class CreateDriver {
         return instance;
     }
 
-    public WebDriver getDriver() {
+    public RemoteWebDriver getDriver() {
         return driver;
     }
 }
