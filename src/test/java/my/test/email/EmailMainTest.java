@@ -11,7 +11,7 @@ public class EmailMainTest {
     private LoginPage loginPage;
 
     @BeforeEach
-    void setup() {
+    void setup()  {
         loginPage = new LoginPage();
 
     }

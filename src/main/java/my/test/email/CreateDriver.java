@@ -1,33 +1,42 @@
 package my.test.email;
 
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.junit.jupiter.api.TestInfo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import static org.openqa.selenium.remote.CapabilityType.BROWSER_NAME;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateDriver {
 
     private WebDriver driver;
     private static CreateDriver instance;
 
-    private static String baseUrl = "http://localhost:4444";
-    private static DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
-    private CreateDriver() {
-        desiredCapabilities.setCapability(BROWSER_NAME, "chrome");
-        desiredCapabilities.setPlatform(Platform.MAC);
-        desiredCapabilities.setCapability("headless",true);
+    private CreateDriver(TestInfo testInfo) throws MalformedURLException {
+        ChromeOptions options = new ChromeOptions();
+        options.setPlatformName("Windows 10");
+        options.setBrowserVersion("latest");
+
+        Map<String, Object> sauceOptions = new HashMap<>();
+        sauceOptions.put("username", System.getenv("oauth-vs.panteleeva-b713f"));
+        sauceOptions.put("accessKey", System.getenv("9e655efcda0c40eda447b33ecb47bd04"));
+        sauceOptions.put("name", testInfo.getDisplayName());
+
+        options.setCapability("sauce:options", sauceOptions);
+        String baseUrl = ("https://ondemand.us-west-1.saucelabs.com/wd/hub");
 
         try {
-            driver = new RemoteWebDriver(new URL(baseUrl), desiredCapabilities);
+            driver = new RemoteWebDriver(new URL(baseUrl), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+    }
+
+    public CreateDriver() {
     }
 
     public synchronized static CreateDriver getInstance() {
