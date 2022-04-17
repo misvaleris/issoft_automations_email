@@ -1,8 +1,8 @@
 package my.test.email;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,10 +17,10 @@ public class LoginPage {
     private static final By PASSWORD_FIELD = By.xpath("//input[@id='passp-field-passwd']");
     private static final By SUBMIT_PASSWORD_BUTTON = By.cssSelector(".Button2_view_action");
 
-    private final WebDriver driver;
+    private final RemoteWebDriver driver;
 
     public LoginPage() {
-        this.driver = CreateDriver.getInstance().getDriver();
+        this.driver = CreateDriver.getInstance().getEdgeDriver();
     }
 
     public LoginPage submitLogin(String username) {
@@ -40,8 +40,8 @@ public class LoginPage {
     public HomePage login(String username, String password) {
         driver.navigate().to(LOGIN_URL);
         submitLogin(username);
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(PASSWORD_FIELD));
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(SUBMIT_PASSWORD_BUTTON));
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.elementToBeClickable(PASSWORD_FIELD));
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.elementToBeClickable(SUBMIT_PASSWORD_BUTTON));
         return submitPassword(password);
     }
 }

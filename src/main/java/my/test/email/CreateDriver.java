@@ -1,7 +1,9 @@
 package my.test.email;
 
-import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.AbstractDriverOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -10,32 +12,45 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CreateDriver {
-
-    private RemoteWebDriver driver;
+    private static final String BASE_URL = "https://oauth-vs.panteleeva-b713f:fded0546-993e-42dc-8f9b-6da4de0b233c@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
     private static CreateDriver instance;
 
+    private final RemoteWebDriver edgeDriver;
+    private final RemoteWebDriver chromeDriver;
+    private final RemoteWebDriver foxDriver;
 
-    private CreateDriver(TestInfo testInfo) throws MalformedURLException {
-        ChromeOptions options = new ChromeOptions();
-        options.setPlatformName("Windows 10");
-        options.setBrowserVersion("latest");
+    private CreateDriver() {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setPlatformName("macOS 11.00");
+        chromeOptions.setBrowserVersion("75");
 
-        Map<String, Object> sauceOptions = new HashMap<>();
-        sauceOptions.put("username", System.getenv("oauth-vs.panteleeva-b713f"));
-        sauceOptions.put("accessKey", System.getenv("9e655efcda0c40eda447b33ecb47bd04"));
-        sauceOptions.put("name", testInfo.getDisplayName());
+        chromeDriver = getRemoteDriver(chromeOptions);
 
-        options.setCapability("sauce:options", sauceOptions);
-        String baseUrl = ("https://ondemand.us-west-1.saucelabs.com/wd/hub");
+        EdgeOptions edgeOptions = new EdgeOptions();
+        edgeOptions.setPlatformName("Windows 10");
+        edgeOptions.setBrowserVersion("latest");
 
-        try {
-            driver = new RemoteWebDriver(new URL(baseUrl), options);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        edgeDriver = getRemoteDriver(edgeOptions);
+
+        FirefoxOptions foxOptions = new FirefoxOptions();
+        foxOptions.setPlatformName("Windows 8.1");
+        foxOptions.setBrowserVersion("78");
+
+        foxDriver = getRemoteDriver(foxOptions);
     }
 
-    public CreateDriver() {
+    public RemoteWebDriver getRemoteDriver(AbstractDriverOptions<?> options) {
+        Map<String, Object> sauceOptions = new HashMap<>();
+        sauceOptions.put("username", System.getenv("oauth-vs.panteleeva-b713f"));
+        sauceOptions.put("accessKey", System.getenv("fded0546-993e-42dc-8f9b-6da4de0b233c"));
+        options.setCapability("sauce:options", sauceOptions);
+
+        try {
+            return new RemoteWebDriver(new URL(BASE_URL), options);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public synchronized static CreateDriver getInstance() {
@@ -45,7 +60,15 @@ public class CreateDriver {
         return instance;
     }
 
-    public RemoteWebDriver getDriver() {
-        return driver;
+    public RemoteWebDriver getChromeDriver() {
+        return chromeDriver;
+    }
+
+    public RemoteWebDriver getEdgeDriver() {
+        return edgeDriver;
+    }
+
+    public RemoteWebDriver getFoxDriver() {
+        return foxDriver;
     }
 }
