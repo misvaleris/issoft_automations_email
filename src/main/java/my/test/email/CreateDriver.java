@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CreateDriver {
-    private static final String BASE_URL = "https://oauth-vs.panteleeva-b713f:fded0546-993e-42dc-8f9b-6da4de0b233c@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
+    private static final String BASE_URL = "";
     private static CreateDriver instance;
 
     private final RemoteWebDriver edgeDriver;
@@ -41,8 +41,8 @@ public class CreateDriver {
 
     public RemoteWebDriver getRemoteDriver(AbstractDriverOptions<?> options) {
         Map<String, Object> sauceOptions = new HashMap<>();
-        sauceOptions.put("username", System.getenv("oauth-vs.panteleeva-b713f"));
-        sauceOptions.put("accessKey", System.getenv("fded0546-993e-42dc-8f9b-6da4de0b233c"));
+        sauceOptions.put("username", System.getenv(""));
+        sauceOptions.put("accessKey", System.getenv(""));
         options.setCapability("sauce:options", sauceOptions);
 
         try {
