@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class AuthenticationAutoPage {
 
-    @FindBy(xpath = "//input[@id='email_create']")
+    @FindBy (xpath = "//input[@id='email_create']")
     private WebElement emailRegistrationFiled;
 
     @FindBy(xpath = "//button[@name='SubmitCreate']")
@@ -28,16 +28,16 @@ public class AuthenticationAutoPage {
 
     private final WebDriver driver;
 
+
     public AuthenticationAutoPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
     public AuthenticationAutoPage submitEmail(String email) {
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOfElementLocated(emailRegistrationFiled));
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(emailRegistrationFiled));
         emailRegistrationFiled.sendKeys(email);
         createAccountButton.click();
-
         return this;
     }
 
