@@ -1,15 +1,15 @@
 package my.test.auto;
 
-import my.test.email.HomePage;
-import my.test.email.LoginPage;
+import my.test.email.CreateDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
 
-import java.time.Duration;
+import java.util.List;
+import java.util.Random;
 
 public class CreateAccountAutoPage {
     @FindBy(xpath = "//input[@id='customer_firstname']")
@@ -30,45 +30,48 @@ public class CreateAccountAutoPage {
     @FindBy(xpath = "//select[@id='id_state']")
     private WebElement stateDropDown;
 
+    @FindBy(xpath = "//select[@id='id_state']/option")
+    private WebElement stateDropDownOptions;
+
     @FindBy(xpath = "//input[@id='postcode']")
     private WebElement postalCodeField;
 
     @FindBy(xpath = "//input[@id='phone_mobile']")
     private WebElement phoneField;
 
-    private final WebDriver driver;
+    @FindBy(xpath = "//button[@id='submitAccount']")
+    private WebElement registerButton;
 
-    public CreateAccountAutoPage(WebDriver driver) {
+    private WebDriver driver;
+
+    public CreateAccountAutoPage() {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
+        this.driver = CreateDriver.getInstance().getChromeDriver();
     }
 
+    public String stateDropDownSelect() {
+        List<WebElement> stateList = stateDropDownOptions.findElements((By) stateDropDownOptions);
 
+        Random random = new Random();
+        for (int i = 0; i < 54; i++) {
+            int randomIndex = random.nextInt(stateList.size());
+            Select drpValue = new Select(stateDropDown);
+            drpValue.selectByIndex(randomIndex);
+            String selectedSate = String.valueOf(drpValue.getFirstSelectedOption());
+            return selectedSate;
+        }
 
-    public CreateAccountAutoPage submitLogin() {
-        submitLoginButton.submit();
-        return this;
+        public HomeAutoPage fillPersonalInfo () {
+            firstNameField.sendKeys(firstName);
+            lastNameField.sendKeys(lastName);
+            passwordField.sendKeys(password);
+            addressField.sendKeys(address);
+            cityField.sendKeys(city);
+            stateDropDownSelect();
+            postalCodeField.sendKeys(postalCode);
+            phoneField.sendKeys(phone);
+            registerButton.click();
+            return new HomeAutoPage();
+        }
     }
-
-    public CreateAccountAutoPage typePassword(String password) {
-        passwordField.sendKeys(password);
-        return this;
-    }
-
-    public HomePage submitPassword() {
-        submitPasswordButton.submit();
-        return new HomePage(driver);
-    }
-
-    public HomePage login(String username, String password) {
-        driver.navigate().to(LOGIN_URL);
-        openLoginForm();
-        typeUsername(username);
-        submitLogin();
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(passwordField));
-        typePassword(password);
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(submitPasswordButton));
-        return submitPassword();
-    }
-
 }

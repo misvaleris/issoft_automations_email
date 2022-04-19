@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class AuthenticationAutoPage {
 
-    @FindBy (xpath = "//input[@id='email_create']")
+    @FindBy(xpath = "//input[@id='email_create']")
     private WebElement emailRegistrationFiled;
 
     @FindBy(xpath = "//button[@name='SubmitCreate']")
@@ -27,18 +27,29 @@ public class AuthenticationAutoPage {
     private WebElement signInButton;
 
     private final WebDriver driver;
+    private static final String LOGIN_URL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
 
 
     public AuthenticationAutoPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
+        this.driver = Driver.getInstance().getChromeDriver();
     }
 
-    public AuthenticationAutoPage submitEmail(String email) {
+    public CreateAccountAutoPage submitRegistrationEmail(String email) {
+        driver.get(LOGIN_URL);
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(emailRegistrationFiled));
         emailRegistrationFiled.sendKeys(email);
         createAccountButton.click();
-        return this;
+        return new CreateAccountAutoPage();
     }
 
+
+    public HomeAutoPage login(String email, String password) {
+        driver.get(LOGIN_URL);
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(emailLoginField));
+        emailLoginField.sendKeys(email);
+        passwordField.sendKeys(password);
+        signInButton.click();
+        return new HomeAutoPage();
+    }
 }
