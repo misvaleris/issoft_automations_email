@@ -4,8 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginAutoPage {
+import java.time.Duration;
+
+public class AuthenticationAutoPage {
 
     @FindBy(xpath = "//input[@id='email_create']")
     private WebElement emailRegistrationFiled;
@@ -24,9 +28,17 @@ public class LoginAutoPage {
 
     private final WebDriver driver;
 
-    public LoginAutoPage(WebDriver driver) {
+    public AuthenticationAutoPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+    }
+
+    public AuthenticationAutoPage submitEmail(String email) {
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOfElementLocated(emailRegistrationFiled));
+        emailRegistrationFiled.sendKeys(email);
+        createAccountButton.click();
+
+        return this;
     }
 
 }
