@@ -1,6 +1,6 @@
-package my.test.auto;
+package my.test.auto.pages;
 
-import my.test.email.CreateDriver;
+import my.test.auto.Driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -10,7 +10,7 @@ public class HomeAutoPage {
 
     public HomeAutoPage() {
         PageFactory.initElements(driver, this);
-        this.driver = CreateDriver.getInstance().getChromeDriver();
+        this.driver = Driver.getInstance().getChromeDriver();
     }
 
 }

@@ -44,4 +44,8 @@ public class AutoTestWatcher implements TestWatcher {
                     .setValue(browser));
         });
     }
+
+    public String getBrowserInfo() {
+        return Driver.getInfo();
+    }
 }

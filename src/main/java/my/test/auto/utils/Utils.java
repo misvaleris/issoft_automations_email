@@ -38,12 +38,12 @@ public class Utils {
 
     public static String getBrowserVersion(WebDriver driver){
         Capabilities cap = ((RemoteWebDriver)driver).getCapabilities();
-        return cap.getVersion();
+        return cap.getBrowserVersion();
     }
 
     public static String getOsName(WebDriver driver){
         Capabilities cap = ((RemoteWebDriver)driver).getCapabilities();
-        return cap.getPlatform().toString();
+        return cap.getPlatformName().toString();
     }
 
 }

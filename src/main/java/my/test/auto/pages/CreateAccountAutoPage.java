@@ -1,6 +1,7 @@
-package my.test.auto;
+package my.test.auto.pages;
 
 import io.qameta.allure.Step;
+import my.test.auto.Driver;
 import my.test.auto.userData.UserData;
 import my.test.auto.utils.Parser;
 import my.test.auto.utils.Utils;
