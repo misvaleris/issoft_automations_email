@@ -1,5 +1,7 @@
 package my.test.auto;
 
+import io.qameta.allure.Step;
+import my.test.auto.utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Properties;
 
 public class AuthenticationAutoPage {
 
@@ -29,26 +32,30 @@ public class AuthenticationAutoPage {
     private final WebDriver driver;
     private static final String LOGIN_URL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
 
+    private final String propertyPath = "src/test/resources/mail.properties";
+    private final Properties properties = Utils.getProperties(propertyPath);
 
     public AuthenticationAutoPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = Driver.getInstance().getChromeDriver();
     }
 
-    public CreateAccountAutoPage submitRegistrationEmail(String email) {
+    @Step("Submit Email for Account Creation Process")
+    public CreateAccountAutoPage submitRegistrationEmail() {
         driver.get(LOGIN_URL);
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(emailRegistrationFiled));
-        emailRegistrationFiled.sendKeys(email);
+        emailRegistrationFiled.sendKeys(Utils.emailGenerator());
         createAccountButton.click();
         return new CreateAccountAutoPage();
     }
 
 
-    public HomeAutoPage login(String email, String password) {
+    @Step("Log in Account")
+    public HomeAutoPage login() {
         driver.get(LOGIN_URL);
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(emailLoginField));
-        emailLoginField.sendKeys(email);
-        passwordField.sendKeys(password);
+        emailLoginField.sendKeys(properties.getProperty("USER_NAME_STORE"));
+        passwordField.sendKeys(properties.getProperty("PASSWORD_STORE"));
         signInButton.click();
         return new HomeAutoPage();
     }

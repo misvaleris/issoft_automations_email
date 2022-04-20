@@ -1,15 +1,14 @@
 package my.test.auto;
 
-import my.test.email.CreateDriver;
-import org.openqa.selenium.By;
+import io.qameta.allure.Step;
+import my.test.auto.userData.UserData;
+import my.test.auto.utils.Parser;
+import my.test.auto.utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
-import java.util.Random;
 
 public class CreateAccountAutoPage {
     @FindBy(xpath = "//input[@id='customer_firstname']")
@@ -30,9 +29,6 @@ public class CreateAccountAutoPage {
     @FindBy(xpath = "//select[@id='id_state']")
     private WebElement stateDropDown;
 
-    @FindBy(xpath = "//select[@id='id_state']/option")
-    private WebElement stateDropDownOptions;
-
     @FindBy(xpath = "//input[@id='postcode']")
     private WebElement postalCodeField;
 
@@ -46,32 +42,32 @@ public class CreateAccountAutoPage {
 
     public CreateAccountAutoPage() {
         PageFactory.initElements(driver, this);
-        this.driver = CreateDriver.getInstance().getChromeDriver();
+        this.driver = Driver.getInstance().getChromeDriver();
     }
 
-    public String stateDropDownSelect() {
-        List<WebElement> stateList = stateDropDownOptions.findElements((By) stateDropDownOptions);
+    public void stateDropDownSelect() {
+        Select states = new Select(stateDropDown);
+        states.selectByIndex(5);
+    }
 
-        Random random = new Random();
-        for (int i = 0; i < 54; i++) {
-            int randomIndex = random.nextInt(stateList.size());
-            Select drpValue = new Select(stateDropDown);
-            drpValue.selectByIndex(randomIndex);
-            String selectedSate = String.valueOf(drpValue.getFirstSelectedOption());
-            return selectedSate;
-        }
+    @Step("Fill required fields")
+    public HomeAutoPage fillPersonalInfo() {
+        UserData userData = Parser.readFromFile();
+        String inputFirstName = userData.getFirstName();
+        firstNameField.sendKeys(inputFirstName);
 
-        public HomeAutoPage fillPersonalInfo () {
-            firstNameField.sendKeys(firstName);
-            lastNameField.sendKeys(lastName);
-            passwordField.sendKeys(password);
-            addressField.sendKeys(address);
-            cityField.sendKeys(city);
-            stateDropDownSelect();
-            postalCodeField.sendKeys(postalCode);
-            phoneField.sendKeys(phone);
-            registerButton.click();
-            return new HomeAutoPage();
-        }
+        String inputLastName = userData.getLastName();
+        lastNameField.sendKeys(inputLastName);
+
+        passwordField.sendKeys(userData.getPassword());
+        addressField.sendKeys(userData.getAddress());
+        cityField.sendKeys(userData.getCity());
+        stateDropDownSelect();
+        postalCodeField.sendKeys(userData.getPostCode());
+        phoneField.sendKeys(Utils.numberGenerator(12));
+
+        registerButton.click();
+        return new HomeAutoPage();
     }
 }
+

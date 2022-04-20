@@ -1,5 +1,6 @@
 package my.test.auto;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -71,5 +72,13 @@ public class Driver {
 
     public RemoteWebDriver getFoxDriver() {
         return foxDriver;
+    }
+
+    public static String getInfo() {
+        Capabilities cap = ((RemoteWebDriver) getInstance().getChromeDriver()).getCapabilities();
+        String browserName = cap.getBrowserName();
+        String platform = cap.getPlatformName().toString();
+        String version = cap.getBrowserVersion();
+        return String.format("browser: %s v: %s platform: %s", browserName, version, platform);
     }
 }
