@@ -4,6 +4,7 @@ package my.test.auto;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.model.Parameter;
+import my.test.auto.driver.Driver;
 import my.test.auto.utils.Utils;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;

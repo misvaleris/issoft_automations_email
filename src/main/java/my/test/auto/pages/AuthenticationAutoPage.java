@@ -1,7 +1,6 @@
 package my.test.auto.pages;
 
 import io.qameta.allure.Step;
-import my.test.auto.Driver;
 import my.test.auto.utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,15 +29,17 @@ public class AuthenticationAutoPage {
     @FindBy(xpath = "//button[@name='SubmitLogin']")
     private WebElement signInButton;
 
-    private final WebDriver driver;
+    private WebDriver driver;
     private static final String LOGIN_URL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
 
     private final String propertyPath = "src/test/resources/mail.properties";
     private final Properties properties = Utils.getProperties(propertyPath);
 
     public AuthenticationAutoPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = Driver.getInstance().getChromeDriver();
+        PageFactory.initElements(this.driver, this);
+    }
+
+    public AuthenticationAutoPage() {
     }
 
     @Step("Submit Email for Account Creation Process")

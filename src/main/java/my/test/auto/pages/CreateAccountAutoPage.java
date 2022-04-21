@@ -1,7 +1,6 @@
 package my.test.auto.pages;
 
 import io.qameta.allure.Step;
-import my.test.auto.Driver;
 import my.test.auto.userData.UserData;
 import my.test.auto.utils.Parser;
 import my.test.auto.utils.Utils;
@@ -12,6 +11,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 public class CreateAccountAutoPage {
+    public String userName;
+
     @FindBy(xpath = "//input[@id='customer_firstname']")
     private WebElement firstNameField;
 
@@ -42,8 +43,7 @@ public class CreateAccountAutoPage {
     private WebDriver driver;
 
     public CreateAccountAutoPage() {
-        PageFactory.initElements(driver, this);
-        this.driver = Driver.getInstance().getChromeDriver();
+        PageFactory.initElements(this.driver, this);
     }
 
     public void stateDropDownSelect() {
@@ -69,6 +69,10 @@ public class CreateAccountAutoPage {
 
         registerButton.click();
         return new HomeAutoPage();
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }
 
