@@ -39,12 +39,6 @@ public class HomePage {
         return viewAccountName.getText();
     }
 
-    @Step("Go to Cart")
-    public CartPage goToCart() {
-        //add button
-        return new CartPage();
-    }
-
     @Step("Go to Wishlist")
     public WishlistPage goToWishlist() {
         wishlistButton.click();
