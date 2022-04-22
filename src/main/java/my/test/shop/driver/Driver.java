@@ -32,4 +32,9 @@ public class Driver {
         String version = cap.getBrowserVersion();
         return String.format("browser: %s v: %s platform: %s", browserName, version, platform);
     }
+
+    public void deleteCookies(){
+        driver.manage().deleteAllCookies();
+        driver.navigate().refresh();
+    }
 }

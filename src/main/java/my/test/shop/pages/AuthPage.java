@@ -36,8 +36,8 @@ public class AuthPage {
     private Properties properties = Utils.getProperties(propertyPath);
 
     public AuthPage() {
-        PageFactory.initElements(driver, this);
         this.driver = Driver.getInstance().getDriver();
+        PageFactory.initElements(driver, this);
     }
 
     @Step("Submit Email to start Registration Process")

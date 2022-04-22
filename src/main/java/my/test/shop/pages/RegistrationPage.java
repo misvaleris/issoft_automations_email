@@ -9,7 +9,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class RegistrationPage {
 
@@ -45,8 +49,8 @@ public class RegistrationPage {
     private WebDriver driver;
 
     public RegistrationPage() {
-        PageFactory.initElements(driver, this);
         this.driver = Driver.getInstance().getDriver();
+        PageFactory.initElements(driver, this);
     }
 
     public void stateDropDownSelect() {
@@ -62,6 +66,8 @@ public class RegistrationPage {
     public HomePage fillPersonalInfo() {
         UserData userData = Parser.readFromFile();
         String inputFirstName = userData.getFirstName();
+
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(firstNameField));
         firstNameField.sendKeys(inputFirstName);
 
         String inputLastName = userData.getLastName();

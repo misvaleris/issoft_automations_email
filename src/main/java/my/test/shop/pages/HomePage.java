@@ -18,25 +18,41 @@ public class HomePage {
     @FindBy(css = "#block_top_menu a[title='Women']")
     private WebElement menuWomenButton;
 
+    @FindBy(css = "[title='My wishlists'] > span")
+    private WebElement wishlistButton;
+
     private WebDriver driver;
 
     public HomePage() {
-        PageFactory.initElements(driver, this);
         this.driver = Driver.getInstance().getDriver();
+        PageFactory.initElements(driver, this);
     }
 
-//    @Step("Go to product list")
-//    public void goToProductList(){
-//        menuWomenButton.click();
-//    }
+    @Step("Go to product list")
+    public CatalogPage goToProductList() {
+        menuWomenButton.click();
+        return new CatalogPage();
+    }
 
     @Step("Retrieve user name from header")
-    public String getUserName(){
+    public String getUserName() {
         return viewAccountName.getText();
     }
 
-//    @Step("Go to account")
-//    public void goToAccount(){
-//        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(userAccountButton)).click();
-//    }
+    @Step("Go to Cart")
+    public CartPage goToCart() {
+        //add button
+        return new CartPage();
+    }
+
+    @Step("Go to Wishlist")
+    public WishlistPage goToWishlist() {
+        wishlistButton.click();
+        return new WishlistPage();
+    }
+
+    @Step("Go to Account")
+    public void goToAccount() {
+        userAccountButton.click();
+    }
 }

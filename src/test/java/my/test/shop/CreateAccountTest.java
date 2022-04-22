@@ -5,12 +5,10 @@ import my.test.shop.extensions.AllureListener;
 import my.test.shop.pages.AuthPage;
 import my.test.shop.pages.HomePage;
 import my.test.shop.pages.RegistrationPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class CreateAccountTest {
     private AuthPage authPage;
@@ -35,6 +33,7 @@ public class CreateAccountTest {
     @Description("User fills out required personal info to complete registration. Expected result: user has ability to see home page after registration")
     @Severity(SeverityLevel.CRITICAL)
     @ParameterizedTest
+    @ValueSource(strings = {"My account - My Store"})
     void loginTest() {
         registrationPage = authPage.submitRegistrationEmail();
         homePage = registrationPage.fillPersonalInfo();
