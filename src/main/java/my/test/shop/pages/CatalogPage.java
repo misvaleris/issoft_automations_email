@@ -49,12 +49,12 @@ public class CatalogPage {
     }
 
     @Step("Add product in wishlist")
-    public List<String> addProductsToWishList(int numberInList){
+    public List<String> addProductsToWishList(int numberInList) {
         int size = productContainers.size();
 
-        if(size >= numberInList){
+        if (size >= numberInList) {
             List<String> productNames = new ArrayList<>();
-            for (int i = 0; i < numberInList; i++){
+            for (int i = 0; i < numberInList; i++) {
                 productNames.add(selectProducts(i));
                 new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(wishlistButton)).click();
                 new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(closeButton)).click();
@@ -67,12 +67,12 @@ public class CatalogPage {
     }
 
     @Step("Add products to cart")
-    public List<String> addProductsToCart(int numberInList){
+    public List<String> addProductsToCart(int numberInList) {
         int size = productContainers.size();
 
-        if(size >= numberInList){
+        if (size >= numberInList) {
             List<String> productNames = new ArrayList<>();
-            for (int i = 0; i < numberInList; i++){
+            for (int i = 0; i < numberInList; i++) {
                 productNames.add(selectProducts(i));
                 new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
                 driver.switchTo().defaultContent();
@@ -84,8 +84,8 @@ public class CatalogPage {
     }
 
     @Step("Select products")
-    public String selectProducts(int numberInList){
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", productContainers.get(numberInList));
+    public String selectProducts(int numberInList) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", productContainers.get(numberInList));
         new Actions(driver).moveToElement(productContainers.get(numberInList)).perform();
         new Actions(driver).moveToElement(quickViews.get(numberInList)).click().perform();
         driver.switchTo().frame(0);
@@ -93,7 +93,13 @@ public class CatalogPage {
     }
 
     @Step("Retrieve product name")
-    public String getProductName(){
+    public String getProductName() {
         return productName.getText();
+    }
+
+    @Step("Go to shopping cart")
+    public CartPage goToShoppingCart() {
+        viewShoppingCartButton.click();
+        return new CartPage();
     }
 }

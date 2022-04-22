@@ -31,6 +31,7 @@ public class WishlistTest {
         homePage = new HomePage();
         authPage = new AuthPage();
         wishlistPage = new WishlistPage();
+        catalogPage = new CatalogPage();
     }
 
     @Test
@@ -80,7 +81,7 @@ public class WishlistTest {
     @Description("Verify that product can be add to auto-created Wishlist")
     @Severity(SeverityLevel.CRITICAL)
     @ParameterizedTest
-    @ValueSource(ints = {3})
+    @ValueSource(ints = {1})
     public void addToManuallyCreatedWishlistProduct(int numberOfProductInTheList) {
         authPage.login();
         homePage.goToWishlist();
@@ -95,7 +96,7 @@ public class WishlistTest {
         int quantity = wishlistPage.getProductQuantity();
         Assertions.assertAll("Wishlist was created automatically and my product is in the list",
                 () -> assertEquals(nameOfProductInWishlist, productsName.get(0), "My product in wishlist"),
-                () -> assertEquals(quantity, numberOfProductInTheList, "Quantity of product is 3")
+                () -> assertEquals(quantity, numberOfProductInTheList, "Quantity of product is 1")
         );
     }
 
