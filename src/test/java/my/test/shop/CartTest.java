@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTest {
     private AuthPage authPage;
-    private WishlistPage wishlistPage;
     private HomePage homePage;
     private CatalogPage catalogPage;
     private CartPage cartPage;
@@ -31,8 +30,8 @@ public class CartTest {
     void setup() {
         homePage = new HomePage();
         authPage = new AuthPage();
-        wishlistPage = new WishlistPage();
         catalogPage = new CatalogPage();
+        cartPage = new CartPage();
     }
 
     @ParameterizedTest
