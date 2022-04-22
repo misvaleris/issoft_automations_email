@@ -1,52 +1,35 @@
 package my.test.shop;
 
 import io.qameta.allure.*;
+import my.test.shop.extensions.AllureListener;
 import my.test.shop.pages.AuthPage;
 import my.test.shop.pages.HomePage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class LoginTest {
     private AuthPage authPage;
 
     @RegisterExtension
-    TestAllureListener watcher = new TestAllureListener("target/surefire-reports");
+    AllureListener watcher = new AllureListener("target/surefire-reports");
 
     @BeforeEach
     void setup() {
-        loginPage = new LoginPage();
+        authPage = new AuthPage();
     }
 
-    @DisplayName("Login test for Email")
+    @DisplayName("Login test")
     @AllureId("Login_1")
     @Feature("Login")
     @Story("User Login")
     @Epic("Login")
-    @Description("User login to Email page. Expected result: after login user has ability to see home page")
+    @Description("User login to Shop Home page. Expected result: after login use has ability to see home page")
+    @Severity(SeverityLevel.CRITICAL)
     @ParameterizedTest
-    @CsvFileSource(resources = "/EmailCredentials.csv", numLinesToSkip = 1)
-    void loginTest(String login, String password) {
-        HomePage homePage = loginPage.login(login, password);
-        Assertions.assertTrue(homePage.isUserLogIn(), "User don't login");
-    }
-
-    @DisplayName("Logout test for Email")
-    @AllureId("Logout_1")
-    @Feature("Logout")
-    @Story("User Logout")
-    @Epic("Logout")
-    @Description("User logout to Email page. Expected result: after logout use doesn't have ability to see home page")
-    @ParameterizedTest
-    @CsvFileSource(resources = "/EmailCredentials.csv", numLinesToSkip = 1)
-    void logoutTest(String login, String password) {
-        HomePage homePage = loginPage.login(login, password);
-        LogoutPage logoutPage = homePage.userLogout();
-        Assertions.assertEquals("Yandex ID. The key to all your services\n" + "Learn more", logoutPage.logout(), "User don't logout");
+    void loginTest() {
+        HomePage homePage = authPage.login();
+        Assertions.assertEquals(homePage.getUserName(), "Valeria Panteleeva", "User name doesn't match. User don't login");
     }
 
     @AfterEach

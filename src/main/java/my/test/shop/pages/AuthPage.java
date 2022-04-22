@@ -43,7 +43,7 @@ public class AuthPage {
     @Step("Submit Email to start Registration Process")
     public RegistrationPage submitRegistrationEmail() {
         driver.get(LOGIN_URL);
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(emailRegistrationFiled));
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(emailRegistrationFiled));
         emailRegistrationFiled.sendKeys(Utils.emailGenerator());
         createAccountButton.click();
         return new RegistrationPage();
