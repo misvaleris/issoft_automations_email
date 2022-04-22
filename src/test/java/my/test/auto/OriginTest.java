@@ -4,6 +4,7 @@ import my.test.auto.driver.Driver;
 import my.test.auto.driver.DriverConfig;
 import my.test.auto.pages.AuthenticationAutoPage;
 import my.test.auto.pages.HeaderAutoPage;
+import my.test.auto.utils.Utils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
@@ -15,13 +16,13 @@ import org.openqa.selenium.WebDriver;
 public class OriginTest {
 
     @BeforeAll
-    public void init(){
+    public void init() {
         WebDriver driver = Driver.getInstance().getDriver(DriverConfig.CHROME);
-//        Utils.setUpAllureEnvironment(driver);
+        Utils.setUpAllureEnvironment(driver);
     }
 
     @AfterAll
-    public void closeWebDriver(){
+    public void closeWebDriver() {
         Driver.getInstance().closeWebDriver();
     }
 

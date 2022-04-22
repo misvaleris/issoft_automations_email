@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Tag("Critical")
 public class LoginTest {
 
+    HeaderAutoPage headerAutoPage;
+
     @ParameterizedTest
     @ValueSource(strings = {"My account - My Store"})
     @Story("Log in account tests")
@@ -22,7 +24,7 @@ public class LoginTest {
     @Description("User log in account")
     @Tag("stable")
     public void loginIntoAccount(String title) {
-        HeaderAutoPage headerAutoPage = loginToSite();
+        headerAutoPage.loginToSite();
         HomeAutoPage homeAutoPage = new HomeAutoPage();
         Assertions.assertAll("Page name and user name are correct",
                 () -> assertEquals(homeAutoPage.getTitleName(), title, "Verify page name"),

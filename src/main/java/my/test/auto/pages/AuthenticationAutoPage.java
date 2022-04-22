@@ -53,12 +53,11 @@ public class AuthenticationAutoPage {
 
 
     @Step("Log in Account")
-    public HomeAutoPage login() {
+    public void login() {
         driver.get(LOGIN_URL);
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(emailLoginField));
         emailLoginField.sendKeys(properties.getProperty("USER_NAME_STORE"));
         passwordField.sendKeys(properties.getProperty("PASSWORD_STORE"));
         signInButton.click();
-        return new HomeAutoPage();
     }
 }
