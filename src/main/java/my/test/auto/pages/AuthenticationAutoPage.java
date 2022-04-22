@@ -56,8 +56,8 @@ public class AuthenticationAutoPage {
     public void login() {
         driver.get(LOGIN_URL);
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(emailLoginField));
-        emailLoginField.sendKeys(properties.getProperty("USER_NAME_STORE"));
-        passwordField.sendKeys(properties.getProperty("PASSWORD_STORE"));
+        emailLoginField.sendKeys(properties.getProperty("USER_NAME"));
+        passwordField.sendKeys(properties.getProperty("PASSWORD"));
         signInButton.click();
     }
 }
