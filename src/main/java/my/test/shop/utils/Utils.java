@@ -22,4 +22,8 @@ public class Utils {
     public static String emailGenerator(){
         return "autotestsmisvaleris" + RandomStringUtils.randomAlphanumeric(5) + "@yandex.by";
     }
+
+    public static String numberGenerator(int count){
+        return RandomStringUtils.randomNumeric(count);
+    }
 }

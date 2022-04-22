@@ -24,7 +24,7 @@ public class LoginTest {
     @Feature("Login")
     @Story("User Login")
     @Epic("Login")
-    @Description("User login to Shop Home page. Expected result: after login use has ability to see home page")
+    @Description("User login to Shop Home page. Expected result: user has ability to see home page after login")
     @Severity(SeverityLevel.CRITICAL)
     @ParameterizedTest
     void loginTest() {
