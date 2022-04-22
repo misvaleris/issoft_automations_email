@@ -1,7 +1,10 @@
 package my.test.shop.pages;
 
+import my.test.shop.driver.Driver;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class AuthPage {
 
@@ -19,5 +22,14 @@ public class AuthPage {
 
     @FindBy(xpath = "//button[@name='SubmitLogin']")
     private WebElement signInButton;
+
+    private WebDriver driver;
+
+    public AuthPage() {
+        PageFactory.initElements(driver, this);
+        this.driver = Driver.getInstance().getDriver();
+    }
+
+
 
 }
